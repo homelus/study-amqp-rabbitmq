@@ -67,4 +67,4 @@ Message receiveAndConver(String queueName, long timeoutMillis) throws AmqpExcept
 ```
 **AmqpTemplate** 구현체는 *receive* 와 *reply* 를 관리한다. 많은 경우 필요하다면 수신된 메시지를 위한 비즈니스 로직을 수행하기 위하거나 응답 객체나 메시지를 빌드하기 위해 **ReceiveAndReplyCallback** 구현체를 제공해야 한다. 
 
-**ReceiveAndReplyCallback** 은 아마도 **null**을 반환할 수 있습니다. 이 경우 응답이 전송되지 않으며 **receiveAndReply** 메서드는 **receive** 처럼 사용됩니다. 동일한 큐에 여러 메시지를 사용할 수 있고 일부는 응답이 필요 없을수 있습니다.
+**ReceiveAndReplyCallback** 은 아마도 **null**을 반환할 수 있습니다. 이 경우 응답이 전송되지 않으며 **receiveAndReply** 메서드는 **receive** 처럼 사용됩니다. 동일한 큐에 여러 메시지를 사용할 수 있고 일부는 응답이 필요 없을 수 있습니다.
