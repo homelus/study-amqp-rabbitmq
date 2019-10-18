@@ -65,6 +65,6 @@ Message receiveAndConver(String queueName, long timeoutMillis) throws AmqpExcept
 
 <R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback, ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
 ```
+**AmqpTemplate** 구현체는 *receive* 와 *reply* 를 관리한다. 많은 경우 필요하다면 수신된 메시지를 위한 비즈니스 로직을 수행하기 위하거나 응답 객체나 메시지를 빌드하기 위해 **ReceiveAndReplyCallback** 구현체를 제공해야 한다. 
 
-
-
+**ReceiveAndReplyCallback** 은 아마도 **null**을 반환할 것이다. 응답이 없는 경우 
