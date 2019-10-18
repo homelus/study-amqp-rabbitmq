@@ -89,3 +89,27 @@ if (received) {
   log.info("We received an order!");
 }
 ```
+
+### [Asynchronous Consumer](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#async-consumer)
+
+> :round_pushpin: **Important**<br>
+> Spring AMQP 는 **@RabbitListener** 애노테이션으로 애노테이션 기반의 진입점을 지원하고 프로그래밍을 통해 진입점을 등록할 수 있는 개방형 인프라를 > 제공합니다.
+> 이것은 비동기 consumer 를 설정하는 가장 편한 방법입니다. 자세한 내용은 [the section called "Annotation-driven Listener Endpoints"](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#async-annotation-driven) 를 참고하세요
+
+#### MessageListener
+비동기 메시지 수신을 위해 (**AmqpTemplate** 이 아닌) 전용 컴포넌트가 필요합니다. 이 컴포넌트는 메시지를 소비하는 callback 을 위한 컨테이너 입니다. 우리는 잠시 컨테이너와 그 속성을 살펴보려고 합니다. 그러나 먼저 애플리케이션 코드가 메시징 시스템과 통합되는 콜백을 살펴보아야 합니다.
+
+```java
+public interface MessageListener {
+  void onMessage(Message message);
+}
+```
+
+어떤 이유든 만약 콜백 로직이 AMQP Channel 인스턴에 의존한다면 **ChannelAwareMessageListener** 을 사용할 수 있습니다. 이는 비슷하지만 추가 매개 변수가 있습니다.
+
+public interface ChannelAwareMessageListener {
+  void onMessage(Message message, Channel channel) throws Exception;
+}
+
+#### MessageListenerAdapter
+애플리케이션 로직과 메시징 API 를 엄격하게 분리하여 유지하려면 프레임워크에서 제공되는 어댑터 패턴을 사용할 수 있습니다. 때때로 "Message-driven POJO" 지원으로 불립니다. 어댑터를 이용할 때 어댑터 자체가 호출해야 할 인스턴스 참조만 제공하면 됩니다.
