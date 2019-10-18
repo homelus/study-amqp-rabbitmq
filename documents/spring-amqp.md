@@ -68,3 +68,24 @@ Message receiveAndConver(String queueName, long timeoutMillis) throws AmqpExcept
 **AmqpTemplate** 구현체는 *receive* 와 *reply* 를 관리한다. 많은 경우 필요하다면 수신된 메시지를 위한 비즈니스 로직을 수행하기 위하거나 응답 객체나 메시지를 빌드하기 위해 **ReceiveAndReplyCallback** 구현체를 제공해야 한다. 
 
 **ReceiveAndReplyCallback** 은 아마도 **null**을 반환할 수 있습니다. 이 경우 응답이 전송되지 않으며 **receiveAndReply** 메서드는 **receive** 처럼 사용됩니다. 동일한 큐에 여러 메시지를 사용할 수 있고 일부는 응답이 필요 없을 수 있습니다.
+
+자동 (요청과 응답)메시지 변환은 단지 제공된 콜백이 (raw message exchange contract 를 제공하는)**ReceiveAndReplyMessageCallback** 타입이 아닐 경우에만 적용됩니다.
+
+**ReplyToAddressCallback** 은 수신 메시지는 운영중에 **replyTo** 주소를 결정하거나 **ReceiveAndReplyCallback** 으로부터 응답하기 위해 커스텀한 로직이 필요한 경우에 유용합니다.
+
+요청 메시지의 **replyTo** 정보는 응답을 전송하는데 사용됩니다.
+
+다음예제는 POJO 기반의 수신과 응답에 관한 예제입니다.
+
+```java
+boolean received = 
+  this.template.receiveAndReply(ROUTE, new ReceiveAndReplyCallback<Order, Invoice>() {
+    public Invoice handle(Order order) {
+      return processOrder(order);
+    }
+  })
+
+if (received) {
+  log.info("We received an order!");
+}
+```
