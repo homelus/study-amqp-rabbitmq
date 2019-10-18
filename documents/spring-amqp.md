@@ -10,7 +10,7 @@
 
 우리는 각각의 접근 방법을 다음 하위 섹션에서 살펴볼 것입니다.
 
-### Polling Consumer
+### [Polling Consumer](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#polling-consumer)
 
 **AmqpTemplate** 은 폴링된 메시지 수신에 사용될 수 있습니다. 사용가능한 메시지가 없을 때 blocking 없이 null 이 즉시 반환된다. 
 
