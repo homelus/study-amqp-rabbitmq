@@ -113,3 +113,8 @@ public interface ChannelAwareMessageListener {
 
 #### MessageListenerAdapter
 애플리케이션 로직과 메시징 API 를 엄격하게 분리하여 유지하려면 프레임워크에서 제공되는 어댑터 패턴을 사용할 수 있습니다. 때때로 "Message-driven POJO" 지원으로 불립니다. 어댑터를 이용할 때 어댑터 자체가 호출해야 할 인스턴스 참조만 제공하면 됩니다.
+
+```java
+MessageListenerAdapter listener = new MessageListenerAdapter(somePojo);
+listener.setDefaultListenerMethod("myMethod");
+```
