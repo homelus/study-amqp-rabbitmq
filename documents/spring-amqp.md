@@ -1,4 +1,4 @@
-## [Receiving messages](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#receiving-messages)
+## [3.1.6 Receiving messages](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#receiving-messages)
 
 ### Introduction
 
