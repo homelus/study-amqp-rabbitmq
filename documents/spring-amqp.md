@@ -28,4 +28,43 @@
 
 1.6 버전에는 기본 요청마다 **receiveTimeout** 를 재정의한 **timeoutMillis** 가 허용되는 다양한 것들이 소개되었습니다.
 
+```java
+Message receive() throws AmqpException;
+
+Message receive(String queueName) throws AmqpException;
+
+Message receive(long timeoutMillis) throws AmqpException;
+
+Message receive(String queueName, long timeoutMillis) throws AmqpException;
+```
+
+메시지를 보내는 예제들 처럼 **AmqpTemplate** 은 **Message** 인스턴스 대신에 POJO 객체를 받을 수 있는 편리한 메소드들을 몇몇 가지고 있다
+또한 Template 의 구현체는 반환받는 **Object** 를 만드는데 **Message Converter** 를 이용하여 커스터마이즈하는 방법을 제공해줄 것이다.
+
+```java
+Object receiveAndConvert() throws AmqpException;
+
+Object receiveAndConvert(String queueName) throws AmqpException;
+
+Message receiveAndConvert(long timeoutMillis) throws AmqpException;
+
+Message receiveAndConver(String queueName, long timeoutMillis) throws AmqpException;
+```
+**sendAndReceive** 메서드와 유사하게 1.3 버전부터 **AmqpTemplate** 은 메시지에 동기적으로 수신, 처리, 응답하기 위한 몇개의 편리한 **receiveAndReply** 메서드를 가지고 있다.
+
+```java
+<R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback) throws AmqpException;
+
+<R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback) throws AmqpException;
+
+<R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback, String replyExchange, String replyRoutingKey) throws AmqpException;
+
+<R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback, String replyExchange, String replyRoutingKey) throws AmqpException;
+
+<R, S> boolean receiveAndReply(ReceiveAndReplyCallback<R, S> callback, ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
+
+<R, S> boolean receiveAndReply(String queueName, ReceiveAndReplyCallback<R, S> callback, ReplyToAddressCallback<S> replyToAddressCallback) throws AmqpException;
+```
+
+
 
