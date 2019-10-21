@@ -119,6 +119,18 @@ MessageListenerAdapter listener = new MessageListenerAdapter(somePojo);
 listener.setDefaultListenerMethod("myMethod");
 ```
 
+어댑터를 서브클래스로 만들 수 있고 메시지를 기반으로 동적으로 다른 메서드를 선택하도록 **getListenerMethodName()** 구현체를 제공할 수 있다.
+이 메서드는 **originalMessage** 와 **extractedMessage** 라는 두 파라미터를 가지는데 후자는 변환 결과가 될 것입니다.
+기본적으로 **SimpleMessageConvertr** 가 설정되어 지는데 가능한 컨버터 및 자세한 정보를 보려면 [**SimpleMessageConverter**](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#polling-consumer) 를 참고하세요.
+
+1.4.2 버전부터 original message 는 **consumeQueue** 와 메시지를 받는 큐를 결정하는 **consumerTag** 라는 속성을 가집니다.
+
+1.5 버전부터 동적으로 조회하고 호출할 수 있도록 consumer 큐와 태그의 메서드 이름을 맵핑시킵니다.
+
+#### Container
+
+
+
 
 # 3.4 [Testing Support](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#testing)
 
