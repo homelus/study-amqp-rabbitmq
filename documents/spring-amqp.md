@@ -208,6 +208,8 @@ container.setConsumerArguments(Collections.<String, Object> singletonMap("x-prio
 
 1.3 버전부터 컨테이너가 리스팅 중인 큐는 [운영중에 수정](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#listener-queues)될 수 있다.
 
+
+
 # 3.4 [Testing Support](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#testing)
 
 ## 3.4.1 Introduction
