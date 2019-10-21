@@ -129,6 +129,70 @@ listener.setDefaultListenerMethod("myMethod");
 
 #### Container
 
+Message-listening callback 을 위한 다양한 옵션들을 통해 관점을 컨테이너로 돌려봅시다.
+
+기본적으로 listener callback 이 수동적으로 처리되기 위해 컨테이너가 활성화된 이벤트들을 다룹니다. 컨테이너는 "lifecycle" 컴포넌트의 예입니다.
+시작과 멈춤에 대한 메서드를 제공해줍니다.
+
+컨테이너를 설정할 때 AMQP 프로토콜과 **Message Listener** 인스턴스를 꼭 연결시켜 주어야 합니다.
+
+반드시 **ConnectionFactory** 에 대한 참조를 제공받아야 하고 메시지를 소비하는 리스너에 대한 queue 이름 또는 queue 인스턴스를 받아와야 합니다.
+
+다음은 기본 구현체 **SimpleMessageListenerContainer** 를 이용하는 기본 예제입니다.
+
+```java
+SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+container.setConnectionFactory(rabbitConnectionFactory);
+container.setQueueName("some.queue");
+container.setMessageListener(new MessageListenerAdapter(somePojo));
+```
+
+실행중인 구성요소로 백그라운드에서 간단히 실행시키기 위해서 BeanDefinition 을 이용해 listener container 를 만드는 것이 가장 일반적인 방법입니다.
+
+다음과 같이 XML 로 설정할 수 있습니다.
+
+```xml
+<rabbit:listener-container connection-factory="rabbitConnectionFactory">
+  <rabbit:listener queues="some.queue" ref="somePojo" method="handle">
+</rabbit:listener-container>
+```
+
+또는 실제 코드와 유사한 @Configuration 스타일을 사용할 수 있습니다.
+
+```java
+@Configuration
+public class ExampleAmqpConfiguration {
+
+  @Bean
+  public SimpleMessageListenerContainer messageListenerContainer() {
+    SimpleMessageListenerContainer container = new ContainerMessageListenerContainer();
+    container.setConnectionFactory(rabbitConnectionFactory());
+    container.setQueueName("some.queue");
+    container.setMessageListener(exampleListener());
+  }
+
+  @Bean
+  public ContainerFactory rabbitContainerFactory() {
+    CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+    connectionFactory.setUserName("guest");
+    connectionFactory.setPassword("guest");
+    return connectionFactory;
+  }
+
+  @Bean
+  public MessageListener exampleListener() {
+    return new MessageListener(Message message) {
+      public void onMessage() {
+        System.out.println("received: " + message);
+      }
+    }
+  }
+
+}
+```
+Rabbit MQ 3.2 버전부터 브로커는 [소비자 우선순위](https://www.rabbitmq.com/blog/2013/12/16/using-consumer-priorities-with-rabbitmq/)를 지원합니다.
+
+consumer 에 **x-priority** 매개 변수를 설정함으로써 사용 가능합니다. **SimpleMessageListenerContainer** 에서는 이를 consumer 매개 변수에 세팅하는 것을 지원합니다.
 
 
 
