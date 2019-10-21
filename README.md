@@ -1,5 +1,5 @@
 # study-amqp-rabbitmq
 
-amqp 와 구현체 rabbit mq 정보
+amqp/rabbit mq 번역 자료 및 테스트 코드
 
 ## 1.6.11.RELEASE [Spring AMQP 번역](/documents/spring-amqp.md)
