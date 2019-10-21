@@ -193,8 +193,20 @@ public class ExampleAmqpConfiguration {
 Rabbit MQ 3.2 버전부터 브로커는 [소비자 우선순위](https://www.rabbitmq.com/blog/2013/12/16/using-consumer-priorities-with-rabbitmq/)를 지원합니다.
 
 consumer 에 **x-priority** 매개 변수를 설정함으로써 사용 가능합니다. **SimpleMessageListenerContainer** 에서는 이를 consumer 매개 변수에 세팅하는 것을 지원합니다.
+ 
+```java
+container.setConsumerArguments(Collections.<String, Object> singletonMap("x-priority", Integer.valueOf(10)));
+```
 
+편의를 위해 네임스페이스는 **listener** 요소에 **priority** 속성을 지원합니다.
 
+```xml
+<rabbit:listener-container connectionFactory="rabbitConnectionFactory">
+  <rabbit:listener queues="some.queue" ref="some.queue" method="handle" priority="10"/>
+</rabbit:listener-container>
+```
+
+1.3 버전부터 컨테이너가 리스팅 중인 큐는 [운영중에 수정](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#listener-queues)될 수 있다.
 
 # 3.4 [Testing Support](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#testing)
 
