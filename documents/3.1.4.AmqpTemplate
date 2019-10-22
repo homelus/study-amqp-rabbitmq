@@ -1,4 +1,6 @@
-# [소개](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#_introduction_5)
+# 3.1.4 AmqpTemplate
+
+## [소개](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#_introduction_5)
 
 스프링 프레임워크나 관련 프로젝트에서 제공되는 많은 다른 고차원 추상화들 처럼 Spring AMQP 는 주된 역할을 수행하는 "template" 을 제공한다.
 
@@ -12,3 +14,40 @@
 
 지금은 **RabbitTemplate** 하나의 구현체만 있습니다. 다음의 예제에서 "AmqpTemplate" 의 사용법을 볼 수 있지만 설정 예제 혹은 
 템플릿이 인스턴스화 되고 setters 가 실행되어지는 코드를 볼 때 "RabbitTemplate" 구현체를 볼 수 있을 것 입니다.
+
+위에서 말한것 처럼, 메시지를 주고 받는 기본 기능에 대한 모두를 **AmqpTemplate** 에 정의합니다.
+
+다음의 두 가지 세션에서 메시지 송/수신에 대하여 각각 설명할 것 입니다.
+
+또한 ["AsyncRabbitTemplate"](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#async-template) 을 참조하세요.
+
+## [재시도 기능 추가](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#template-retry)
+
+1.3 버전부터 **RabbitTemplate** 에 브로커 연결 문제를 다루기 위해 **RetryTemplate** 기능을 이용할 수 있다. 
+
+완전한 정보는 [spring-retry](https://github.com/spring-projects/spring-retry) 프로젝트를 참고해주세요. 
+
+다음은 지수적으로 back off 정책을 이용하는 예제와 호출자에게 예외를 던지기 전에 세번의 시도를 하는 기본적인 **SimpleRetryPolicy** 에 대한 예제입니다.
+
+XML 을 이용한 방법
+```xml
+<rabbit:template id="template" connection-factory="connectionFactory" retry-template="retryTemplate">
+
+<bean id="retryTemplate" class="org.springframework.retry.support.RetryTemplate">
+  <property name="backOffPolicy">
+    <bean class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+      <property name="initialInterval" value="500"/>
+      <property name="multiplier" value="10.0"/>
+      <property name="maxInterval" value="10000"/>
+    </bean>
+  </property>
+</bean>
+```
+
+**Configuration** 을 이용한 방법
+```java
+@Bean
+public AmqpTemplate rabbitTemplate() {
+  
+}
+```
