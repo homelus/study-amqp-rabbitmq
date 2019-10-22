@@ -1,0 +1,14 @@
+# [소개](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#_introduction_5)
+
+스프링 프레임워크나 관련 프로젝트에서 제공되는 많은 다른 고차원 추상화들 처럼 Spring AMQP 는 주된 역할을 수행하는 "template" 을 제공한다.
+
+주된 기능이 정의된 인터페이스는 **AmqpTemplate** 입니다. 이런 기능들은 메시지를 전송하고 받는 일반적인 동작을 다룹니다.
+
+다르게 말해 구현체가 고유하지 않으므로 "AMQP" 라고 부릅니다. 반면 이 인터페이스의 구현체는 AMQP 프로토콜의 구현체에 강하게 묶입니다.
+
+자체로 인터페이스 레벨인 JMS 와 달리 AMQP 는 [wire-level](https://en.wikipedia.org/wiki/Wire_protocol) 프로토콜 입니다.
+
+프로토콜의 구현체는 그들 자신의 라이브러리를 제공합니다. 그래서 각각의 템플릿 인터페이스 구현체는 특정 클라이언트 라이브러리에 종속됩니다.
+
+지금은 **RabbitTemplate** 하나의 구현체만 있습니다. 다음의 예제에서 "AmqpTemplate" 의 사용법을 볼 수 있지만 설정 예제 혹은 
+템플릿이 인스턴스화 되고 setters 가 실행되어지는 코드를 볼 때 "RabbitTemplate" 구현체를 볼 수 있을 것 입니다.
