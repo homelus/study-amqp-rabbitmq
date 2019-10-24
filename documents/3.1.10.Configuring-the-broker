@@ -1,7 +1,0 @@
-# 3.1.10 [Configuring the broker](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/_reference.html#broker-configuration)
-
-## 소개
-
-AMQP 명세는 브로커의 Queues, Exchanges, Bindings 를 설정하기 위해 프로토콜을 어떻게 사용하는지를 알려줍니다. 
-
-0.8 명세 이상부터 이용가능한 이 작업은 org.springframework.amqp.core.package 안에 AmqpAdmin 인터페이스에 나타납니다. 

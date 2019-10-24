@@ -57,6 +57,21 @@ public class RabbitListenerSpyAndCaptureTest {
     private RabbitListenerTestHarness harness;
 
     @Test
+    public void testTwoWay() throws InterruptedException {
+        assertEquals("FOO", this.rabbitTemplate.convertSendAndReceive(this.queue1.getName(), "foo"));
+
+        Listener listener = this.harness.getSpy("foo");
+        assertNotNull(listener);
+
+        verify(listener).foo("foo");
+
+        InvocationData invocationData = this.harness.getNextInvocationDataFor("foo", 10, TimeUnit.SECONDS);
+        assertNotNull(invocationData);
+        assertThat((String) invocationData.getArguments()[0], equalTo("foo"));
+        assertThat((String) invocationData.getResult(), equalTo("FOO"));
+    }
+
+    @Test
     public void testOneWay() throws InterruptedException {
         Listener listener = this.harness.getSpy("bar");
         assertNotNull(listener);
@@ -153,6 +168,7 @@ public class RabbitListenerSpyAndCaptureTest {
 
         @RabbitListener(id = "foo", queues = "#{queue1.name}")
         public String foo(String foo) {
+            System.out.println("listener: " + foo);
             return foo.toUpperCase();
         }
 
