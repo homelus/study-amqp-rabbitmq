@@ -1,5 +1,7 @@
 # Rabbit MQ
 
+> [참조](https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html)
+
 RabbitMQ 는 메시지를 수용하고 전달하는 메시지 브로커이다.
 RabbitMQ 를 우체국으로 생각해 봅시다.
 만약 보내고 싶은 메일을 우편함에 넣어 놓으면 우편배달부가 메일을 수신자에게 전달한다는 것을 확신할 수 있습니다.
