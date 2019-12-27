@@ -15,7 +15,7 @@ RabbitMQ 와 우체국사이에 가장 큰 다른점은 종이를 다루지 않�
 생산자, 소비자와 브로커는 같은 곳에 존재하지 않는데 실제 대부분의 애플리케이션에서 떨어져있습니다.
 애플리케이션은 생산자이면서 소비자일 수 있습니다.
 
-### [Spring AMQP 번역](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/) 1.6.11.RELEASE
+### [Spring AMQP 번역](https://docs.spring.io/spring-amqp/docs/1.6.11.RELEASE/reference/html/) (1.6.11.RELEASE)
 
 #### [3.1.1.AMQP Abstraction](/documents/3.1.1.AMQP-Abstraction.md)
 
